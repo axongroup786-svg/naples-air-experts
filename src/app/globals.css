@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0b2545;
+  --color-navy-800: #123a63;
+  --color-navy-600: #1b4e82;
+  --color-sky: #1d7fd1;
+  --color-sky-deep: #1668b8;
+  --color-sky-light: #6bb2ea;
+  --color-flare: #f97316;
+  --color-flare-ink: #c2410c;
+  --color-flare-dark: #ea6a09;
+  --color-alarm: #dc2626;
+  --color-panel: #eef2f6;
+  --color-rule: #dde5ed;
+  --color-muted: #4a5c70;
+
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: #ffffff;
+    color: #0b2545;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    padding-bottom: 4.5rem;
+    overflow-x: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      padding-bottom: 0;
+    }
+  }
+
+  ::selection {
+    background: #f97316;
+    color: #0b2545;
+  }
+
+  :focus-visible {
+    outline: 3px solid #f97316;
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ---------- Livery / ticket utilities ---------- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 0.94;
+}
+
+.display-xl {
+  font-size: clamp(2.5rem, 7.4vw, 5rem);
+}
+
+.display-lg {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+}
+
+.display-md {
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+}
+
+.micro {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.micro-sm {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.measure {
+  max-width: 68ch;
+}
+
+/* Hazard chevron band — the structural divider */
+.hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #0b2545 0 16px,
+    #ffffff 16px 32px
+  );
+  background-size: 45.254px 45.254px;
+  animation: hazard-drift 24s linear infinite;
+}
+
+.hazard-alert {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #0b2545 0 16px,
+    #f97316 16px 32px
+  );
+  background-size: 45.254px 45.254px;
+  animation: hazard-drift 18s linear infinite;
+}
+
+@keyframes hazard-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 45.254px;
+  }
+}
+
+/* Faint blueprint grid for navy bands */
+.blueprint {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Ticket / work-order field */
+.ticket {
+  background: #ffffff;
+  border: 1px solid var(--color-rule);
+  box-shadow:
+    0 18px 40px -22px rgba(11, 37, 69, 0.55),
+    0 2px 0 0 rgba(11, 37, 69, 0.06);
+}
+
+.ticket-head {
+  border-bottom: 2px dashed var(--color-rule);
+}
+
+.field {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #c9d5e2;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+  color: #0b2545;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.field::placeholder {
+  color: #8397ac;
+}
+
+.field:focus {
+  border-color: #1d7fd1;
+  box-shadow: inset 0 0 0 1px #1d7fd1;
+  outline: none;
+}
+
+.field-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #4a5c70;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+  padding: 0.95rem 1.35rem;
+  border: 2px solid transparent;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-flare {
+  background: #f97316;
+  color: #0b2545;
+  border-color: #f97316;
+}
+
+.btn-flare:hover {
+  background: #fb8b30;
+  border-color: #fb8b30;
+}
+
+.btn-navy {
+  background: #0b2545;
+  color: #ffffff;
+  border-color: #0b2545;
+}
+
+.btn-navy:hover {
+  background: #123a63;
+  border-color: #123a63;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #0b2545;
+  border-color: #0b2545;
+}
+
+.btn-ghost:hover {
+  background: #0b2545;
+  color: #ffffff;
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.btn-outline-light:hover {
+  background: #ffffff;
+  color: #0b2545;
+  border-color: #ffffff;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.link-arrow svg {
+  transition: transform 0.2s ease;
+}
+
+.group:hover .link-arrow svg,
+.link-arrow:hover svg {
+  transform: translateX(5px);
+}
+
+/* Reveal choreography — hidden only once JS is confirmed alive */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.reveal-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hazard,
+  .hazard-alert {
+    animation: none;
+  }
+}
+
+/* FAQ accordion */
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item[open] .faq-plus {
+  transform: rotate(45deg);
+  background: #f97316;
+  color: #0b2545;
+  border-color: #f97316;
+}
+
+.faq-plus {
+  transition:
+    transform 0.22s ease,
+    background-color 0.22s ease;
+}
